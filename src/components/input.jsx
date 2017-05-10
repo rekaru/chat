@@ -3,19 +3,18 @@ import { connect } from 'react-redux';
 import { addMsg } from '../actions/index.js';
 import io from 'socket.io-client';
 
+class InputField extends Component {
+    render() {
 
-
-let InputField = ({dispatch}) => {
-    let input
-
-        return (
+        let input;
+        return(
             <div>
                 <form onSubmit={e => {
                     e.preventDefault();
                     if (!input.value.trim()) {
                         return
                     }
-                    dispatch(addMsg(input.value));
+                    this.props.dispatch(addMsg(input.value));
                     input.value = '';
                 }} >
                     <input ref={node => {
@@ -25,9 +24,12 @@ let InputField = ({dispatch}) => {
                 </form>
             </div>
         )
-
+    }
 }
 
-InputField = connect()(InputField);
 
-export default InputField;
+function MapStateToProps(state) {
+    return {state}
+}
+
+export default connect(MapStateToProps)(InputField);
