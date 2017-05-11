@@ -2,28 +2,24 @@ import React from 'react';
 import { render } from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import msg from '../reducers/index';
+import { addMsg } from '../actions/index.js';
 import App from './app.jsx';
+import mainReducer from '../reducers/index.js';
 
-const initialState = [
-    {
-        user: 'Max',
-        text: 'Hello'
-    },
-    {
-        user: 'Alex1',
-        text: 'Fine'
-    }
-];
+const socket = io();
 
-const store = createStore(msg, initialState);
-store.subscribe(() => {
-    console.log(store.getState());
+const initialState = {messages: [
+], user: 'guest'};
+
+const store = createStore(mainReducer, initialState);
+
+socket.on('chat message', (msg) => {
+  store.dispatch(addMsg(msg.text, msg.user));
 });
-store.dispatch({type: 'ADD_MSG', text: 'test', user: 'Spirit'});
+
 render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
-    document.getElementById('root')
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
 );
