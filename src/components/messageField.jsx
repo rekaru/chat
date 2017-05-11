@@ -4,25 +4,23 @@ import Message from './message.jsx';
 
 class MessageField extends Component {
   render() {
-    let propsStore = this.props.messages.messages;
+    let propsStore = this.props.messages;
     let allMessages = propsStore.map(message => {
       return (
       <Message user={message.user} text={message.text} />
-      )
+      );
     });
 
     return (
-      <div>
+      <div className="messageContainer">
         {allMessages}
       </div>
-    )
+    );
   }
 }
 
 function mapStateToProps(state) {
-  return {
-    messages: state
-  }
+  return state;
 }
 
 export default connect(mapStateToProps)(MessageField);
