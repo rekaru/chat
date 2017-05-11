@@ -6,12 +6,12 @@ import PopUp from './popup.jsx';
 class App extends Component {
   render() {
     return(
-      <div>
+      <div className="container">
         <PopUp/>
         <MessageField/>
         <InputField/>
       </div>
-    )
+    );
   }
 }
 
