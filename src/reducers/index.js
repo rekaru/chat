@@ -1,23 +1,17 @@
-const msg = (state = [
-    {
-        user: 'Max',
-        text: 'Hello'
-    },
-    {
-        user: 'Alex',
-        text: 'Hey'
-    }
-], action) => {
-    switch (action.type) {
-        case 'ADD_MSG':
-            return [...state, {
-                user: action.user,
-                text: action.text
-            }];
-        default:
-            return state
+const mainReducer = (state= {}, action) => {
+  switch (action.type) {
+    case 'ADD_MSG':
+      return Object.assign({}, state, {
+        messages: [...state.messages, {user: action.user, text: action.text}]
+      });
+    case 'ADD_USER':
+      return Object.assign({}, state, {
+        user: action.user
+      });
+    default:
+      return state
+  }
 
-    }
 };
 
-export default msg;
+export default mainReducer;
